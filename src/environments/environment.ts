@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  viewToken: "7cfde4c63b2143b888f592d34927a899",
+  viewToken: "b6586fa3ce1a404e8e3ab9e62225d948",
+  fileId: "10000724943569",
+  webApiUrl: "https://localhost:7203/"
 };
 
 /*

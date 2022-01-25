@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewToken } from 'src/app/entity/view-token';
 import { GetKeyInfoService } from 'src/app/services/get-key-info.service';
 
 // 获取模型视图令牌
@@ -19,13 +20,27 @@ export class Feature1Component implements OnInit {
   }
 
   ngOnInit(): void {
-    viewToken = this.getInfo.getViewToken();
-    //创建BimfaceSDKLoaderConfig
-    let loaderConfig = new BimfaceSDKLoaderConfig();
-    //设置BimfaceSDKLoaderConfig的viewToken
-    loaderConfig.viewToken = viewToken;
-    //调用BimfaceSDKLoader的load方法加载模型
-    BimfaceSDKLoader.load(loaderConfig, this.successCallback, this.failureCallback);
+    // viewToken = this.getInfo.getViewToken();
+    this.getInfo.getViewToken().subscribe(
+      Object => {
+        let view = Object as ViewToken;
+        viewToken = view.data;
+        //创建BimfaceSDKLoaderConfig
+        let loaderConfig = new BimfaceSDKLoaderConfig();
+        //设置BimfaceSDKLoaderConfig的viewToken
+        loaderConfig.viewToken = viewToken;
+        //调用BimfaceSDKLoader的load方法加载模型
+        BimfaceSDKLoader.load(loaderConfig, this.successCallback, this.failureCallback);
+      }
+    )
+    /*
+      //创建BimfaceSDKLoaderConfig
+      let loaderConfig = new BimfaceSDKLoaderConfig();
+      //设置BimfaceSDKLoaderConfig的viewToken
+      loaderConfig.viewToken = viewToken;
+      //调用BimfaceSDKLoader的load方法加载模型
+      BimfaceSDKLoader.load(loaderConfig, this.successCallback, this.failureCallback);
+    */
   }
 
   //加载成功回调函数
